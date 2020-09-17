@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="pantone331c">#05c3de</color>
-
-    <!--pallete one-->
-    <color name="pantoneDark331c">#017787</color>
-    <color name="pantoneOne">#01B0C8</color><!--3DAEBD-->
-    <color name="pantoneTwo">#30CBE1</color>
-    <color name="pantoneTree">#5BD4E5</color>
-    <color name="pantoneTransparent">#6605c3de</color>
-    <color name="pantoneDarkTransparent">#8c017787</color>
-    <!--pallete two-->
-    <color name="palleteDark">#29757f</color>
-    <color name="palleteOne">#bfd6d9</color>
-    <color name="palleteDarkTransparent">#8c29757F</color>
-    <!--Whats app color-->
-    <color name="waPrimary">#128C7E</color>
-    <color name="waPrimaryDark">#075e54</color>
-    <color name="waText">#41a290</color>
-    <color name="waLightBackground">#a7e6d7</color>
-    <color name="waTransparent">#8c128C7E</color>
-    <color name="detailBackgroud">#37000000</color>
-    <color name="textWhite">#FFFAFAFA</color>
-    <!--<color name="textWhite">#FFFFFFFF</color>-->
+    <color name="colorPrimary">#4547bf</color>
+    <color name="colorPrimaryDark">#030440</color>
+    <color name="colorAccent">#03DAC5</color>
 </resources>
