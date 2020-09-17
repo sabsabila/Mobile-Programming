@@ -1,0 +1,14 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/waPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/waPrimaryDark</item>
+    </style>
+
+    <style name="ThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/palleteDark</item>
+        <item name="colorPrimaryDark">@color/palleteDark</item>
+    </style>
+
+</resources>
