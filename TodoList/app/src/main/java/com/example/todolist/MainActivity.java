@@ -2,24 +2,106 @@ package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Bundle;
-import android.app.Activity;
-import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
 {
-    String[] mobileArray = {"Membuat rangkuman Layout", "Mengerjakan tugas Machine Learning", "Mengerjakan tugas Keterampilan Komunikasi", "Bermain game"};
+    ListView listview;
+    Button addButton;
+    EditText GetValue;
+    String[] ListElements = new String[] {"Belajar Android", "Mengerjakan Tugas", "Membuat Rangkuman", "Mentoring WPPL"};
+    ArrayAdapter<String> adapter;
+    ArrayList<String> ListElementsArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview, mobileArray);
+        listview = findViewById(R.id.listView1);
+        addButton = findViewById(R.id.btnAdd);
+        GetValue = findViewById(R.id.editText);
 
-        ListView listView = (ListView) findViewById(R.id.mobile_list);
-        listView.setAdapter(adapter);
+        ListElementsArrayList = new ArrayList<>(Arrays.asList(ListElements));
+        adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, ListElementsArrayList);
+        listview.setAdapter(adapter);
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Show input box
+                showInputBox(ListElementsArrayList.get(position),position);
+            }
+        });
+
+        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                showAlertDialog(position);
+                return true;
+            }
+        });
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListElementsArrayList.add(GetValue.getText().toString());
+                adapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    public void showAlertDialog(final int position){
+        final int index = position;
+
+        new AlertDialog.Builder(MainActivity.this)
+                .setIcon(android.R.drawable.ic_delete)
+                .setTitle("Delete Item")
+                .setMessage("Are you sure you want to delete this item ?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        ListElementsArrayList.remove(index);
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .setNegativeButton("No", null)
+                .show();
+    }
+
+    public void showInputBox(String oldItem, final int index){
+        final Dialog dialog=new Dialog(MainActivity.this);
+        dialog.setTitle("Input Box");
+        dialog.setContentView(R.layout.input_box);
+
+        TextView txtMessage=(TextView)dialog.findViewById(R.id.txtmessage);
+        txtMessage.setText("Update item");
+        txtMessage.setTextColor(Color.parseColor("#ff2222"));
+
+        final EditText editText=(EditText)dialog.findViewById(R.id.txtinput);
+        editText.setText(oldItem);
+        Button bt=(Button)dialog.findViewById(R.id.btdone);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListElementsArrayList.set(index,editText.getText().toString());
+                adapter.notifyDataSetChanged();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 }
