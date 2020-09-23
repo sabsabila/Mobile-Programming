@@ -20,7 +20,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
 {
     ListView listview;
-    Button addButton;
+    Button addButton, clearButton;
     EditText GetValue;
     String[] ListElements = new String[] {"Belajar Android", "Mengerjakan Tugas", "Membuat Rangkuman", "Mentoring WPPL"};
     ArrayAdapter<String> adapter;
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity
 
         listview = findViewById(R.id.listView1);
         addButton = findViewById(R.id.btnAdd);
+        clearButton = findViewById(R.id.btnClear);
         GetValue = findViewById(R.id.editText);
 
         ListElementsArrayList = new ArrayList<>(Arrays.asList(ListElements));
@@ -62,6 +63,14 @@ public class MainActivity extends AppCompatActivity
                 adapter.notifyDataSetChanged();
             }
         });
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ListElementsArrayList.clear();
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     public void showAlertDialog(final int position){
@@ -71,6 +80,7 @@ public class MainActivity extends AppCompatActivity
                 .setIcon(android.R.drawable.ic_delete)
                 .setTitle("Delete Item")
                 .setMessage("Are you sure you want to delete this item ?")
+                .setNegativeButton("No", null)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -78,7 +88,6 @@ public class MainActivity extends AppCompatActivity
                         adapter.notifyDataSetChanged();
                     }
                 })
-                .setNegativeButton("No", null)
                 .show();
     }
 

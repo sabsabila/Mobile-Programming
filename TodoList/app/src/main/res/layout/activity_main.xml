@@ -16,6 +16,13 @@
         android:layout_height="wrap_content"
         android:text="Add item"
         android:layout_below="@id/editText" />
+    <Button
+        android:id="@+id/btnClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear"
+        android:layout_below="@id/editText"
+        android:layout_toRightOf="@+id/btnAdd"/>
 
     <ListView
         android:id="@+id/listView1"
