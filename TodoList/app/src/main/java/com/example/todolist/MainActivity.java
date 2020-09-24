@@ -1,11 +1,14 @@
 package com.example.todolist;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Show input box
@@ -56,11 +60,18 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        addButton.setOnClickListener(new View.OnClickListener() {
+        /*addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ListElementsArrayList.add(GetValue.getText().toString());
                 adapter.notifyDataSetChanged();
+            }
+        });*/
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openNewActivity();
             }
         });
 
@@ -71,6 +82,11 @@ public class MainActivity extends AppCompatActivity
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    public void openNewActivity(){
+        Intent intent = new Intent(this, InputActivity.class);
+        startActivity(intent);
     }
 
     public void showAlertDialog(final int position){
@@ -91,22 +107,23 @@ public class MainActivity extends AppCompatActivity
                 .show();
     }
 
-    public void showInputBox(String oldItem, final int index){
-        final Dialog dialog=new Dialog(MainActivity.this);
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    public void showInputBox(String oldItem, final int index) {
+        final Dialog dialog = new Dialog(MainActivity.this);
         dialog.setTitle("Input Box");
         dialog.setContentView(R.layout.input_box);
 
-        TextView txtMessage=(TextView)dialog.findViewById(R.id.txtmessage);
+        TextView txtMessage = (TextView) dialog.findViewById(R.id.txtmessage);
         txtMessage.setText("Update item");
-        txtMessage.setTextColor(Color.parseColor("#ff2222"));
+        txtMessage.setTextColor(Color.parseColor("#000000"));
 
-        final EditText editText=(EditText)dialog.findViewById(R.id.txtinput);
+        final EditText editText = (EditText) dialog.findViewById(R.id.txtinput);
         editText.setText(oldItem);
-        Button bt=(Button)dialog.findViewById(R.id.btdone);
+        Button bt = (Button) dialog.findViewById(R.id.btdone);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ListElementsArrayList.set(index,editText.getText().toString());
+                ListElementsArrayList.set(index, editText.getText().toString());
                 adapter.notifyDataSetChanged();
                 dialog.dismiss();
             }
