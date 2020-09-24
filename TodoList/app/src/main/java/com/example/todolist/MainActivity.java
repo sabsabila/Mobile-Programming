@@ -1,6 +1,5 @@
 package com.example.todolist;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -8,11 +7,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;import android.widget.ListView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,17 +36,14 @@ public class MainActivity extends AppCompatActivity
         listview = findViewById(R.id.listView1);
         addButton = findViewById(R.id.btnAdd);
         clearButton = findViewById(R.id.btnClear);
-        GetValue = findViewById(R.id.editText);
 
         ListElementsArrayList = new ArrayList<>(Arrays.asList(ListElements));
         adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, ListElementsArrayList);
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Show input box
                 showInputBox(ListElementsArrayList.get(position),position);
             }
         });
@@ -59,14 +55,6 @@ public class MainActivity extends AppCompatActivity
                 return true;
             }
         });
-
-        /*addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ListElementsArrayList.add(GetValue.getText().toString());
-                adapter.notifyDataSetChanged();
-            }
-        });*/
 
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,7 +95,6 @@ public class MainActivity extends AppCompatActivity
                 .show();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public void showInputBox(String oldItem, final int index) {
         final Dialog dialog = new Dialog(MainActivity.this);
         dialog.setTitle("Input Box");
